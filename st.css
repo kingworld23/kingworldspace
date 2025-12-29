@@ -1,0 +1,63 @@
+body{
+    background-image: url('https://tse1.mm.bing.net/th/id/OIP.M9R6L6aezz7xhtqngZkoogHaEK?pid=Api&P=0&h=180');
+    background-position: center;
+    background-size: cover;
+    backdrop-filter: blur(10px);
+    background-repeat: no-repeat;
+    margin: 0;
+  min-height: 100vh;
+}
+#my101{
+    color: #e5e7eb;
+   position: relative;
+   left: 500px;
+}
+
+#my201{
+    position: relative;
+    left: 570px;
+    height: 200px;
+}
+
+    
+
+#my102{
+    color: #9ca3af;
+    position: relative;
+    left: 570px;
+
+}
+
+#my103{
+    color: #fad100;
+    position: relative;
+    left: 570px;
+}
+
+/* for rank */
+#my501{
+    position: relative;
+    left: 570px;
+    color: gold;
+}  
+
+/* for box  */
+#my301{
+    position: relative;
+    left: 570px;
+
+}
+
+/* for submit */
+
+#my401{
+    position: relative;
+    left: 720px;
+    background-size: cover;
+}
+
+#my601{
+    width: 100px;
+    height: 40px;
+    font-size: 20px;
+}
