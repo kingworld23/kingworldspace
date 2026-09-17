@@ -2028,28 +2028,49 @@
       navigateTo('dashboard');
     }
 
-    function handleUserRegister(e) {
-      e.preventDefault();
-      const name = document.getElementById('regName').value;
-      const email = document.getElementById('regEmail').value;
-      const role = document.querySelector('input[name="regUserRole"]:checked').value;
-      const state = document.getElementById('regState').value;
-      const village = document.getElementById('regVillage').value || "District Hub";
+    async function handleUserRegister(e) {
+    e.preventDefault();
 
-      APP_STATE.currentUser = {
-        name: name,
-        email: email,
-        role: role,
-        location: `${village}, ${state}`
-      };
+    const name = document.getElementById('regName').value.trim();
+    const phone = document.getElementById('regPhone').value.trim();
+    const email = document.getElementById('regEmail').value.trim();
+    const password = document.getElementById('regPassword').value;
 
-      localStorage.setItem('kisan_user', JSON.stringify(APP_STATE.currentUser));
-      updateUserNavUI();
-      closeAuthModal();
-      renderDashboardData();
-      showToast("Account Created! 🌾", `Welcome to Farmers Direct, ${name}`);
-      navigateTo('dashboard');
+    try {
+        // Create account in Supabase Authentication
+        const { data: authData, error: authError } =
+            await db.auth.signUp({
+                email: email,
+                password: password
+            });
+
+        if (authError) {
+            alert("Registration failed: " + authError.message);
+            return;
+        }
+
+        // Save name and phone in your farmer table
+        const { error: dbError } = await db
+            .from('farmer')
+            .insert({
+                "full name": name,
+                "mobile number": phone
+            });
+
+        if (dbError) {
+            alert("Database error: " + dbError.message);
+            return;
+        }
+
+        alert("Registration successful!");
+
+        document.getElementById('formRegister').reset();
+
+    } catch (error) {
+        console.error(error);
+        alert("Something went wrong.");
     }
+}
 
     function quickDemoLogin(role) {
       if (role === 'farmer') {
